@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Damir Sarkulin](https://up.htmlacademy.ru/javascript/13/user/615305).
-* Наставник: `Неизвестно`.
+* Наставник: [Ренат Туктаров](https://htmlacademy.ru/profile/id408799).
 
 ---
 
