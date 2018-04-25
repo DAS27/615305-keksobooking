@@ -6,7 +6,7 @@ var closeOverlay = function () {
 };
 closeOverlay();
 
-var maxPins = 8;
+var PIN_COUNT = 8;
 
 var titlesOffer = [
   'Большая уютная квартира',
@@ -118,13 +118,13 @@ var generateCards = function (quantity) {
   return cards;
 };
 
-var cardsData = generateCards(maxPins);
+var cardsData = generateCards(PIN_COUNT);
 
 var map = document.querySelector('.map');
 var pins = map.querySelector('.map__pins');
-var pinTemplate = document.querySelector('#template-card').content.querySelector('.map__pin');
+var pinTemplate = document.querySelector('template').content.querySelector('.map__pin');
 var filters = map.querySelector('.map__filters-container');
-var cardTemplate = document.querySelector('#template-card').content.querySelector('.popup');
+var cardTemplate = document.querySelector('template').content.querySelector('.popup');
 var fragment = document.createDocumentFragment();
 
 var makePin = function (dataArray) {
@@ -155,7 +155,7 @@ var makeCard = function (dataArray) {
 
   cardTitle.textContent = dataArray.offer.title;
   cardAddress.textContent = dataArray.offer.address;
-  cardPrice.textContent = dataArray.offer.price + ' р/ночь';
+  cardPrice.textContent = dataArray.offer.price + ' ₽/ночь';
 
   switch (dataArray.offer.type) {
     case 'flat':
