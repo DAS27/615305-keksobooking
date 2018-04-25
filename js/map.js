@@ -43,13 +43,14 @@ var featuresOffers = [
 var getRandomInteger = function (min, max) {
   return Math.floor(Math.random() * (max - min) + min);
 };
-//
+// Получить случайный порядок в массиве
 var getArrayRandom = function (arr) {
   var randomSort = function () {
     return Math.random() - 0.5;
   };
   return arr.sort(randomSort);
 };
+// Создание элементов
 var createElement = function(tag, tagClass, text) {
   var element = document.querySelector(tag);
   element.classList.add(tagClass);
@@ -58,7 +59,16 @@ var createElement = function(tag, tagClass, text) {
   }
   return element;
 };
+// Получить случайный длинны массив
+var getRandomLengthArray = function(arr) {
+  var newLength = Math.floor(Math.random() *  arr.length);
+  var newArray = arr.contact();
 
+  for (var i = 0; i < arr.length - newLength; ++i) {
+    newArray.splice(Math.floor(Math.random() * newArray.length), 1);
+  }
+  return newArray;
+};
 // Временное удаление класса
 var sectionMap = document.querySelector('.map');
 var closeOverlay = function () {
