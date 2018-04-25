@@ -75,3 +75,34 @@ var closeOverlay = function () {
   sectionMap.classList.remove('map--faded');
 };
 closeOverlay();
+// Генерация карточек
+var generateCard = function (quantity) {
+  var cards = [];
+  var sortTitle = getArrayRandom(titleOffers);
+
+  for (var i = 0; i < quantity; i++) {
+    cards[i] = {
+      author: {
+        avatar: 'img/avatar/user0' + (i + 1) + '.png'
+      },
+      offer: {
+        title: sortTitle[i],
+        price: getRandomInteger(1000, 1000000),
+        type: typeOffers[getRandomInteger(0, typeOffers.lenght)],
+        rooms: getRandomInteger(1, 5),
+        guests: getRandomInteger(1, 20),
+        chechin: checkinOffers[getRandomInteger(0, checkinOffers.length)],
+        checkout: checkoutOffers[getRandomInteger(0, checkoutOffers.length)],
+        features: getRandomLengthArray(featuresOffers),
+        description: '',
+        photos: getArrayRandom(photosOffers)
+      },
+      location: {
+        x: getRandomInteger(300, 900),
+        y: getRandomInteger(150, 500)
+      }
+    };
+    cards[i].offer.address = cards[i].location.x + ',' + cards[i].location.y;
+  }
+  return cards;
+};
