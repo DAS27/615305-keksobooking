@@ -76,7 +76,7 @@ var closeOverlay = function () {
 };
 closeOverlay();
 // Генерация карточек
-var generateCard = function (quantity) {
+var generateCards = function (quantity) {
   var cards = [];
   var sortTitle = getArrayRandom(titleOffers);
 
@@ -106,3 +106,28 @@ var generateCard = function (quantity) {
   }
   return cards;
 };
+
+var cardsData = generateCards(PIN_COUNT);
+
+var map = document.querySelector('.map');
+var pins = map.querySelector('.map__pins');
+var pinTemplate = document.querySelector('template').content.querySelector('.map__pin');
+var filters = map.querySelector('.map__filters-container');
+var cardTemplate = document.querySelector('template').content.querySelector('.popup');
+var fragment = document.createDocumentFragment();
+
+var makePin = function (dataArray) {
+  var pin = pinTemplate.cloneNode(true);
+  var pinImg = pin.querySelector('img');
+  var pinWidth = 50;
+  var pinHeight = 70;
+  var pinXY = 'left: ' + (dataArray.location.x + pinWidth / 2) + 'px; ' + 'top: ' + (dataArray.location.y + pinHeight) + 'px';
+
+  pin.style = pinXY;
+  pinImg.src = dataArray.author.avatar;
+  pinImg.alt = dataArray.offer.title;
+
+  return pin;
+};
+
+var makeCard =
