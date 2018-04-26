@@ -1,11 +1,5 @@
 'use strict';
 
-var blockMap = document.querySelector('.map');
-var closeOverlay = function () {
-  blockMap.classList.remove('map--faded');
-};
-closeOverlay();
-
 var PIN_COUNT = 8;
 
 var titlesOffer = [
@@ -19,12 +13,12 @@ var titlesOffer = [
   'Неуютное бунгало по колено в воде'
 ];
 
-var typeOffer = [
-  'flat',
-  'bungalo',
-  'house',
-  'palace',
-];
+var typeOffer = {
+  'flat': 'Квартира',
+  'bungalo': 'Бунгало',
+  'house': 'Дом',
+  'palace': 'Дворец',
+};
 
 var checkinOffer = [
   '12:00',
@@ -53,6 +47,15 @@ var featuresOffer = [
   'conditioner'
 ];
 
+var getRandomElement = function (array) {
+  var element = getRandomInteger(0, array.length);
+  return element;
+};
+
+var getRandomInteger = function (min, max) {
+  return Math.floor(getRandomNumber(min, max));
+};
+
 var getRandomNumber = function (min, max) {
   return Math.floor(Math.random() * (max - min) + min);
 };
@@ -75,15 +78,14 @@ var createNewElement = function (tag, tagClass, text) {
 };
 
 var getRandomLengthArray = function (arr) {
-  var newLength = Math.floor(Math.random() * arr.length);
-  var newArray = arr.concat();
-
-  for (var i = 0; i < arr.length - newLength; i++) {
-    newArray.splice(Math.floor(Math.random() * newArray.length), 1);
-  }
-
-  return newArray;
+  return arr.slice(0, Math.floor(Math.random() * arr.length));
 };
+
+var blockMap = document.querySelector('.map');
+var closeOverlay = function () {
+  blockMap.classList.remove('map--faded');
+};
+closeOverlay();
 
 var generateCards = function (quantity) {
   var cards = [];
@@ -98,7 +100,7 @@ var generateCards = function (quantity) {
       offer: {
         title: shuffledOffersTitle[i],
         price: getRandomNumber(1000, 1000000),
-        type: typeOffer[getRandomNumber(0, typeOffer.length)],
+        type: typeOffer[getRandomElement(typeOffer)],
         rooms: getRandomNumber(1, 5),
         guests: getRandomNumber(1, 5),
         checkin: checkinOffer[getRandomNumber(0, checkinOffer.length)],
@@ -119,7 +121,6 @@ var generateCards = function (quantity) {
 };
 
 var cardsData = generateCards(PIN_COUNT);
-
 var map = document.querySelector('.map');
 var pins = map.querySelector('.map__pins');
 var pinTemplate = document.querySelector('template').content.querySelector('.map__pin');
@@ -156,20 +157,7 @@ var makeCard = function (dataArray) {
   cardTitle.textContent = dataArray.offer.title;
   cardAddress.textContent = dataArray.offer.address;
   cardPrice.textContent = dataArray.offer.price + ' ₽/ночь';
-
-  switch (dataArray.offer.type) {
-    case 'flat':
-      cardType.textContent = 'Квартира';
-      break;
-    case 'bungalo':
-      cardType.textContent = 'Бунгало';
-      break;
-    case 'house':
-      cardType.textContent = 'Дом';
-      break;
-    case 'palace':
-      cardType.textContent = 'Дворец';
-  }
+  // cardType.textContent = dataArray.offer.type;
 
   cardCapacity.textContent = dataArray.offer.rooms + ' комнат для ' + dataArray.offer.guests + ' гостей';
   cardTime.textContent = 'заезд после ' + dataArray.offer.checkin + ', ' + 'выезд до ' + dataArray.offer.checkout;
